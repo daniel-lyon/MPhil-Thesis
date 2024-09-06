@@ -1,5 +1,53 @@
-\chapter{Chapter 3 Name}
+\chapter{Luminosity Functions}
 \thispagestyle{empty}
-\section{Part 1 Name}
 
-\lipsum[1]
+\begin{itemize}
+    \item \textcolor{red}{first using only one field: CDFS as a walk through and proof of concept with luminosity per frequency}
+    \item \textcolor{red}{redshift bins}
+    \item \textcolor{red}{luminosity bins}
+    \item \textcolor{red}{comoving distance}
+    \item \textcolor{red}{maximum distance}
+    \item \textcolor{red}{maximum distance limit (redshift bin)}
+    \item \textcolor{red}{survey area, observable volume}
+    \item \textcolor{red}{figure idea: 3d animation with maximum distances coloured by luminosity}
+    \item \textcolor{red}{volume analogies?}
+    \item \textcolor{red}{number histograms vs luminosity plot}
+    \item \textcolor{red}{code snippets for any of this? goes in appendix?}
+    \item \textcolor{red}{figure: first basic luminosity function!}
+    \item \textcolor{red}{schechter fit}
+    \item \textcolor{red}{saunders fit}
+    \item \textcolor{red}{move onto bolometric LF...}
+\end{itemize}
+
+\section{Galaxy Distribution}
+Given our large ZFOURGE statistical distribution and reduction process discussed in section \textcolor{red}{(make section labels)}
+
+\section{Estimations}
+\subsection{Vmax}
+To estimate the LF from our data, we utilise the $1/V_{max}$ method \citep{schmidt_space_1968}. The $1/V_{max}$ method does not make any assumptions or depend on the shape of the LF itself, making this method a very reliable model of the LF shape. The $1/V_{max}$ method accounts for the maximum observable volume of each galaxy and is given by equation \ref{EQ: 1/Vmax}:
+
+\begin{equation} 
+    \label{EQ: 1/Vmax}
+    \phi(L,z) = \frac{1}{\Delta \log L}\sum_{i=1}^N \frac{1}{V_{max,i}}
+\end{equation}
+\myequations{Number Density Estimation}
+
+where $V_{max}$ represents the maximum co-moving volume of the $i$-th source and $\Delta$ log(L) is the width of the luminosity bin. In practice, to observe the evolution of the LF through cosmic time, the maximum observable volume ($V_{max}$) is calculated for each redshift bin where the volume is limited by the upper and lower bounds of the redshift bin. Additionally, redshift bins are split into luminosity bins to observe the number density evolution across the different classes of luminosity such as LIRGS (10$^{11} < L_{IR} < 10^{12} L_{\odot}$) and ULIRGS ($L_{IR} > 10^{12} L_{\odot}$). $V_{max}$ of each galaxy is calculated by taking the maximum comoving-volume of the redshift bin the galaxy resides in and subtracting the comoving-volume at the beginning of the redshift bin (equation \ref{EQ: Vmax}). We account for the survey area probed by ZFOURGE (0.1111 degrees$^2$) which normalises the volume probed across the whole sky (41,253 degrees$^2$). 
+
+\begin{equation}
+    \label{EQ: Vmax}
+    V_{max,i} = \frac{4}{3} \pi \left(D_{max}^3 - D_{min}^3\right) \times \frac{A}{41,253}
+\end{equation}
+\myequations{Maximum Observable Volume}
+
+Since all sources with maximum distances smaller than the end of the redshift bin are removed, the volume probed for a galaxy in a redshift bin is the same for all galaxies in the same redshift bin. Different redshift bins have different volumes and each luminosity bin has a different number density $\phi$. Therefore, $D_{min}$ and $D_{max}$ are the comoving-distances at the beginning and end of the redshift bin respectively. 
+
+We calculate the maximum ($D_{max}$) and minimum ($D_{min}$) comoving distances for all sources within each redshift bin using the \texttt{FlatLambdaCDM} model from the \texttt{Astropy} Python package \citep{astropy_collaboration_astropy_2022}. These calculations are performed for sources above the luminosity-completeness limits. We limit each luminosity bin to a minimum of five sources, or else the luminosity bin is discarded. The relative LF number density $1\sigma$ error values are calculated with:
+
+\begin{equation} 
+    \label{EQ: Vmax Error}
+    \phi(L,z) = \frac{1}{\Delta \log L}\sqrt{\sum_i \frac{1}{V_{max}^2}}
+\end{equation}
+\myequations{Number Density Error}
+
+\subsection{Other Methods}

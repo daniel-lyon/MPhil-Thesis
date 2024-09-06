@@ -1,0 +1,152 @@
+% QUT Presenting Your Thesis:
+%   https://qutvirtual4.qut.edu.au/group/research-students/your-candidature/your-thesis/presenting-a-thesis
+
+% QUT Writing Your Thesis:
+%   https://qutvirtual4.qut.edu.au/group/research-students/your-candidature/your-thesis/writing-a-thesis
+
+% QUT Thesis by Publication Guidelines:
+%   https://qutvirtual4.qut.edu.au/documents/4387124/4429384/GRC_Thesis-Type-Publication_Guidelines.pdf/afd8d3fc-dc39-d394-91f9-ba815f4db73d?t=1654692202907
+
+% QUT Thesis by Monograph Guidelines:
+%   https://qutvirtual4.qut.edu.au/documents/4387124/4429384/GRC_Thesis-Type-Monograph_Guidelines.pdf/484a5dbc-c77f-875b-1842-a90f4788133e?t=1654692202789
+
+% Older guidelines but still has some very useful informationn:
+%   QUT Requirements for Presenting Thesis: 
+%   https://cms.qut.edu.au/__data/assets/pdf_file/0004/7249/requirements_for_presenting_theses.pdf
+
+%   QUT Thesis by Publication Guidelines:
+%   https://cms.qut.edu.au/__data/assets/pdf_file/0004/451903/faculty-of-education-thesis-by-publication-guidelines.pdf
+
+% Preamble
+\documentclass[12pt]{book}
+\input{embed_video}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, top=25mm, left=25mm, right=25mm, bottom=25mm]{geometry}
+    \setlength{\parskip}{0.5em}
+    \setlength{\headheight}{15pt} % to make fancyhdr happy
+\usepackage{graphicx}
+\usepackage{subfiles}
+\usepackage[sectionbib]{natbib}
+\usepackage[linktoc=page,
+    colorlinks=true, 
+    linkcolor=blue, 
+    citecolor=blue,
+    urlcolor=blue]
+    {hyperref}
+\usepackage{doi}
+\usepackage{lipsum}
+\usepackage{fancyhdr}
+    \renewcommand{\sectionmark}[1]{\markright{\thesection~~~#1}}
+    \renewcommand{\chaptermark}[1]{\markboth{\if@mainmatter \fi#1}{}}
+\usepackage[acronym,nonumberlist,nogroupskip,nopostdot,toc]{glossaries}
+    \makeglossaries
+    \loadglsentries{Sections/Frontmatter/Acronyms}
+    \renewcommand*{\glstextformat}[1]{\textcolor{magenta}{#1}}
+\usepackage{setspace}
+\usepackage{emptypage}
+\usepackage[titletoc]{appendix}
+\usepackage[titles]{tocloft}
+
+% Start
+\begin{document}
+\frontmatter
+
+% Title Page
+\subfile{Sections/Frontmatter/Title Page}
+\newgeometry{top=25mm, left=25mm, right=25mm, bottom=25mm, bindingoffset=15mm} % required
+\onehalfspacing % required
+
+% Style
+\pagestyle{fancy}
+\fancyhead[RO,LE]{\thepage}
+\fancyhead[RE]{\nouppercase{\leftmark}}
+\fancyhead[LO]{\nouppercase{\rightmark}}
+\fancyfoot{} 
+
+% Frontmatter
+\subfile{Sections/Frontmatter/Dedication}
+\subfile{Sections/Frontmatter/Authorship}
+\subfile{Sections/Frontmatter/Publications}
+\subfile{Sections/Frontmatter/Acknowledgements}
+\subfile{Sections/Frontmatter/Abstract} 
+
+% Table of contents
+\thispagestyle{empty}
+\renewcommand*\contentsname{Table of Contents}
+\tableofcontents
+\clearpage
+
+% List of Figures
+\cleardoublepage
+\phantomsection
+\setlength{\cftfigindent}{0pt} % remove indentation
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoffigures
+\thispagestyle{empty}
+
+% List of Tables
+\cleardoublepage
+\phantomsection
+\setlength{\cfttabindent}{0pt} % remove indentation
+\addcontentsline{toc}{chapter}{List of Tables}
+\listoftables
+\thispagestyle{empty}
+
+% List of Equations
+\cleardoublepage
+\phantomsection
+\newcommand{\listequationsname}{List of Equations}
+\newlistof{myequations}{equ}{\listequationsname}
+\newcommand{\myequations}[1]{%
+\addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}\par}
+\addcontentsline{toc}{chapter}{List of Equations}
+\setlength{\cftmyequationsnumwidth}{2.5em}
+% \setlength{\cftmyequationsindent}{1.5em}
+\listofmyequations
+\thispagestyle{empty}
+
+% List of Acronyms
+\begin{spacing}{2} % double spacing here only
+    \printacronyms[title=List of Acronyms, style=super]
+\end{spacing}
+\glsaddall % <----- prints all acronyms even if not used with "\gls{}"
+\thispagestyle{empty}
+
+% Chapter 1
+\mainmatter
+\subfile{Sections/Chapter 1/Part 1}
+\subfile{Sections/Chapter 1/Part 2}
+
+% Chapter 2
+\subfile{Sections/Chapter 2/Part 1}
+\subfile{Sections/Chapter 2/Part 2}
+
+% Chapter 3
+\subfile{Sections/Chapter 3/Part 1}
+\subfile{Sections/Chapter 3/Part 2}
+
+% Chapter 4
+\subfile{Sections/Chapter 4/Part 1}
+
+% Chapter 5
+\subfile{Sections/Chapter 5/Part 1}
+
+% Chapter 6
+\subfile{Sections/Chapter 6/Part 1}
+
+% Chapter 7
+\subfile{Sections/Chapter 7/Part 1}
+
+% References
+\renewcommand{\bibsection}{\chapter*{References}}
+\addcontentsline{toc}{chapter}{References}
+\bibliography{references.bib}
+\bibliographystyle{aasjournal} % <----- change to your field's preferred style
+\thispagestyle{empty}
+
+% Appendices
+\subfile{Sections/Appendices/A}
+\subfile{Sections/Appendices/B}
+
+% End
+\end{document}
