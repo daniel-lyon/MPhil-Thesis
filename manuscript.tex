@@ -36,6 +36,7 @@
     citecolor=blue,
     urlcolor=blue]
     {hyperref}
+\usepackage{xurl}
 \usepackage{doi}
 \usepackage{lipsum}
 \usepackage{fancyhdr}
@@ -43,7 +44,7 @@
     \renewcommand{\chaptermark}[1]{\markboth{\if@mainmatter \fi#1}{}}
 \usepackage[acronym,nonumberlist,nogroupskip,nopostdot,toc]{glossaries}
     \makeglossaries
-    \loadglsentries{Sections/Frontmatter/Acronyms}
+    \loadglsentries{Frontmatter/Acronyms}
     \renewcommand*{\glstextformat}[1]{\textcolor{magenta}{#1}}
 \usepackage{setspace}
 \usepackage{emptypage}
@@ -51,16 +52,23 @@
 \usepackage[titles]{tocloft}
 \usepackage{pythonhighlight}
 \usepackage[noabbrev, nameinlink]{cleveref}
-    \creflabelformat{equation}{#2\textup{#1}#3}
-    \newcommand\crefp[1]{(\cref{#1})}
+    % \creflabelformat{equation}{#2\textup{#1}#3}
+    % \creflabelformat{equation}{#2\textup{\textcolor{ForestGreen}{#1}}#3}
+    \crefformat{equation}{\textcolor{ForestGreen}{equation~#2\textcolor{ForestGreen}{#1}#3}}
+    % \newcommand\crefp[1]{(\cref{#1})}
 \AtBeginEnvironment{equation}{\color{ForestGreen}}
+\usepackage[labelfont={color=orange}]{caption}
+\usepackage{changepage}
+\usepackage{booktabs}
+\usepackage{pdflscape}
+\usepackage{enumerate}
 
 % Start
 \begin{document}
 \frontmatter
 
 % Title Page
-\subfile{Sections/Frontmatter/Title Page}
+\subfile{Frontmatter/Title Page}
 \newgeometry{top=25mm, left=25mm, right=25mm, bottom=25mm, bindingoffset=15mm} % required
 \onehalfspacing % required
 
@@ -72,11 +80,11 @@
 \fancyfoot{} 
 
 % Frontmatter
-\subfile{Sections/Frontmatter/Dedication}
-\subfile{Sections/Frontmatter/Authorship}
-\subfile{Sections/Frontmatter/Publications}
-\subfile{Sections/Frontmatter/Acknowledgements}
-\subfile{Sections/Frontmatter/Abstract} 
+\subfile{Frontmatter/Dedication}
+\subfile{Frontmatter/Authorship}
+\subfile{Frontmatter/Publications}
+\subfile{Frontmatter/Acknowledgements}
+\subfile{Frontmatter/Abstract} 
 
 % Table of contents
 \thispagestyle{empty}
@@ -122,30 +130,36 @@
 
 % Chapter 1
 \mainmatter
-\subfile{Sections/Chapter 1/Part 1}
-\subfile{Sections/Chapter 1/Part 2}
+\subfile{chapter_1/1_lss}
+\subfile{chapter_1/2_first}
+\subfile{chapter_1/3_bhs}
+\subfile{chapter_1/4_feedback}
+\subfile{chapter_1/5_sed}
+\subfile{chapter_1/6_malmquist}
+\subfile{chapter_1/7_infrared}
+\subfile{chapter_1/8_multi}
+\subfile{chapter_1/9_overview}
 
 % Chapter 2
-\subfile{Sections/Chapter 2/Part 1}
-\subfile{Sections/Chapter 2/Part 2}
+\subfile{chapter_2/Part 1}
+\subfile{chapter_2/Part 2}
+\subfile{chapter_2/Part 3}
+\subfile{chapter_2/Part 4}
+\subfile{chapter_2/Part 5}
 
 % Chapter 3
-\subfile{Sections/Chapter 3/Part 1}
-\subfile{Sections/Chapter 3/Part 2}
-\subfile{Sections/Chapter 3/Part 3}
-\subfile{Sections/Chapter 3/Part 4}
+\subfile{chapter_3/1_abstract}
+\subfile{chapter_3/2_introduction}
+\subfile{chapter_3/3_data}
+\subfile{chapter_3/4_luminosity_functions}
+\subfile{chapter_3/5.1_discussion_lf}
+\subfile{chapter_3/5.2_param_evo}
+\subfile{chapter_3/5.3_luminosity_density}
+\subfile{chapter_3/5.4_class_density}
+\subfile{chapter_3/6_conclusions}
 
 % Chapter 4
-\subfile{Sections/Chapter 4/Part 1}
-
-% Chapter 5
-\subfile{Sections/Chapter 5/Part 1}
-
-% Chapter 6
-\subfile{Sections/Chapter 6/Part 1}
-
-% Chapter 7
-\subfile{Sections/Chapter 7/Part 1}
+\subfile{chapter_4/Part 1}
 
 % References
 \chaptermark{References}
@@ -156,8 +170,8 @@
 \thispagestyle{empty}
 
 % Appendices
-\subfile{Sections/Appendices/A}
-\subfile{Sections/Appendices/B}
+\subfile{Appendices/A}
+\subfile{Appendices/B}
 
 % End
 \end{document}
