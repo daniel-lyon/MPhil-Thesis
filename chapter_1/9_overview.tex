@@ -1,2 +1,18 @@
 \section{Thesis Overview}
-Test
+ This thesis presents a novel approach to constructing decomposed \gls{ir} \gls{agn} \gls{lf}s with \texttt{CIGALE}. We aim to address key questions in the current literature:
+
+\begin{itemize}
+    \item Does IR \gls{sed} decomposition lead to improved SF and AGN LFs?
+    \item How does AGN activity evolve over cosmic time?
+    \item What is the relationship between SF and AGN activity, and what role does feedback play at different cosmic periods?
+\end{itemize}
+
+The purpose of this thesis is to utilise \texttt{CIGALE} \citep{boquien_cigale_2019}, a specialised \gls{sed} code, to decompose the \gls{ir} luminosities of \gls{zfourge} galaxies \citep{straatman_fourstar_2016} into \gls{sf} and \gls{agn} components to then analyse their separated and corresponding \gls{lf}. By analysing the \gls{sf} and \gls{agn} \gls{lf} simultaneously, each can be directly compared to observe the differences in their evolution and co-evolution. We then use the \gls{lf} to analyse the free-parameter evolution, the evolution of the luminosity density, and the luminosity class evolution. Throughout this thesis, we adopt a cosmology of $H_0 = 70$ km $\mathrm{s^{-1}\ Mpc^{-1}}$, $\Omega_m=0.7$, and $\Omega_\Lambda=0.3$. The thesis is structured as follows:
+
+\begin{itemize}
+    \item \Cref{Sec: Luminosity Functions Chapter}: This chapter details the step-by-step approach used to calculate test \gls{lf}, including formulas and diagnostic figures. Starting from single band observations ($K_s$) in absolute magnitude space, \textit{magnitude} functions of the entire \gls{zfourge} survey are generated. Spectral luminosity functions are then generated to ensure the methodology is correct.
+
+    \item \Cref{Sec: Paper Chapter}: This chapter first discusses the implementation of the \texttt{CIGALE} \gls{sed} fitting code. Then, this chapter generates and examines the decomposed IR \gls{sf} and \gls{agn} \gls{lf}. It then critically analyses the results of the \gls{lf}, the parameter evolution, luminosity density, and luminosity class evolution. 
+
+    \item \Cref{Sec: Concluding Chapter}: This chapter summarises the results of the work within the thesis. It also discusses the limitations, assumptions, the direction future work should take, and finally speculates what the future may hold for theories of cosmology and the universe. 
+\end{itemize}

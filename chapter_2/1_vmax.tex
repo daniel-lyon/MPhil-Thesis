@@ -1,0 +1,67 @@
+\chapter{Testing Luminosity Functions} \label{Sec: Luminosity Functions Chapter}
+\thispagestyle{empty}
+
+This chapter demonstrates the steps required to calculate two types of \gls{lf}. We do this to ensure the \gls{lf} are calculated correctly before moving on to further analysis, as it is the most crucial step to perform correctly; any further analysis relies on the evolution of the \gls{lf} first and foremost. To begin, we review the most utilised method of measuring the number density of galaxies in \cref{Sec: Vmax}, the functions used to fit the different \gls{lf} in \cref{Sec: Fitting functions}, magnitude functions in \cref{Sec: Magnitude Functions}, and finally spectral functions in \cref{Sec: Spectral Functions}.  
+
+\section{Vmax} \label{Sec: Vmax}
+To estimate the LF from our data, we utilise the $1/V_{max}$ method \citep{schmidt_space_1968}. The $1/V_{max}$ method does not make any assumptions or depend on the shape of the LF itself, ensuring that each galaxy contributes proportionally to its accessible volume, allowing for an unbiased estimate of number density. Thus, the $1/V_{max}$ method is a very reliable model of the LF. The $1/V_{max}$ method accounts for the maximum observable volume of each galaxy and is given by \cref{EQ: Number Density}. The maximum observable volume ($V_{max}$) of a galaxy is the comoving volume within which it could still be detected given the survey’s flux limits. It accounts for the fact that brighter galaxies are visible over larger distances than fainter ones, and is used to correct for selection bias in flux-limited samples:
+
+\begin{equation}
+    \label{EQ: Number Density}
+    \phi(L,z) = \frac{1}{\Delta \log L}\sum_{i=1}^N \frac{1}{V_{max,i}}
+\end{equation}
+\myequations{Number Density Estimation}
+
+where $V_{max}$ represents the maximum co-moving volume of the $i$-th source and $\Delta$ log(L) is the width of the luminosity bin. In practice, to observe the evolution of the LF through cosmic time, the maximum observable volume ($V_{max}$) is calculated for each redshift bin where the upper and lower bounds of the redshift bin limit the volume. Additionally, redshift bins are split into luminosity bins to observe the number density evolution across the different classes of luminosity such as \gls{lirg} (10$^{11} < L_{IR} < 10^{12} L_{\odot}$) and \gls{ulirg} ($L_{IR} > 10^{12} L_{\odot}$) \citep{valiante_backward_2009}. $V_{max}$ of each galaxy is calculated by taking the maximum comoving volume of the redshift bin the galaxy resides in and subtracting the comoving volume at the beginning of the redshift bin (\cref{EQ: Vmax}). We account for the survey area by ZFOURGE (0.1111 degrees$^2$), which normalises the volume probed across the sky (41,253 degrees$^2$). 
+
+\begin{equation}
+    \label{EQ: Vmax}
+    V_{max,i} = \frac{4}{3} \pi \left(d_{max}^3 - d_{min}^3\right) \times \frac{A}{41,253}
+\end{equation}
+\myequations{Maximum Observable Volume}
+
+% Since all sources with maximum distances smaller than the end of the redshift bin are removed, the volume probed for a galaxy in a redshift bin is the same for all galaxies in the same redshift bin.
+
+We calculate the maximum ($d_{max}$) and minimum ($d_{min}$) comoving distances for all sources within each redshift bin using the \texttt{FlatLambdaCDM} model from the \texttt{Astropy} Python package \citep{astropy_collaboration_astropy_2022}. Different redshift bins have various volumes, and each luminosity bin has a different number density $\phi$. Therefore, $d_{min}$ and $d_{max}$ are the comoving distances at the beginning and end of the redshift bin, respectively. These calculations are performed for sources above the luminosity-completeness limits defined as the turnover point in the LF. We limit each luminosity bin to a minimum of 10 sources, or else the luminosity bin is discarded. The relative LF number density $1\sigma$ error values are calculated with:
+
+\begin{equation} 
+    \label{EQ: Number Density Error}
+    \phi(L,z) = \frac{1}{\Delta \log L}\sqrt{\sum_i \frac{1}{V_{max,i}^2}}
+\end{equation}
+\myequations{Number Density Error}
+
+In code, $V_{max,i}$ is calculated as follows:
+
+\begin{python}    
+    # Minimum and maximum distance for the redshift bin
+    dmin = cosmo.comoving_distance(z_min).value # Mpc
+    dmax = cosmo.comoving_distance(z_max).value # Mpc
+
+    # Find the maximum distance for each source
+    dmaxs = np.sqrt(luminosity / (4*np.pi*Fbol_lim)) # meters
+    dmaxs *= 3.241 * 10 ** -23 # meters -> Mpc
+
+    # Limit maximum distance to the end of the redshift bin
+    dmaxs[dmaxs > dmax] = dmax
+
+    # Calculate the minimum volume of the redshift bin
+    vmin = 4/3 * np.pi * dmin**3 # Mpc^3
+
+    # Calculate the maximum volume of each galaxy
+    vmaxs = 4/3 * np.pi * dmaxs**3 # Mpc^3
+    
+    # Total volume probed accounting for survey area (deg^2)
+    v_max = (vmaxs - vmin) * (survey_area / 41253) # Mpc^3
+\end{python}
+
+% \subsection{Other Methods}
+% Other methods of estimating the number density of galaxies do exist, such as \textcolor{red}{cite, cite, cite...}
+
+% \begin{itemize}
+%     \item \textcolor{red}{how luminosity functions are calculated}
+%     \item \textcolor{red}{maximum distance plot?}
+%     \item \textcolor{red}{small introduction}
+%     \item \textcolor{red}{figure idea: 3d animation with maximum distances coloured by luminosity}
+%     \item \textcolor{red}{volume analogies?}
+%     \item \textcolor{red}{code snippets for any of this? goes in appendix?}
+% \end{itemize}

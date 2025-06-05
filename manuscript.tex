@@ -17,8 +17,11 @@
 %   QUT Thesis by Publication Guidelines:
 %   https://cms.qut.edu.au/__data/assets/pdf_file/0004/451903/faculty-of-education-thesis-by-publication-guidelines.pdf
 
+% QUT Award Abbreviations:
+% https://www.qut.edu.au/about/governance-and-policy/handbooks-course-lists-and-award-abbreviations/award-abbreviations-post-nominal-letters
+
 % Preamble
-\documentclass[12pt]{book}
+\documentclass[12pt, openany]{book}
 \input{embed_video}
 \usepackage[dvipsnames]{xcolor}
 \usepackage[utf8]{inputenc}
@@ -62,6 +65,8 @@
 \usepackage{booktabs}
 \usepackage{pdflscape}
 \usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{tabularx}
 
 % Start
 \begin{document}
@@ -81,10 +86,11 @@
 
 % Frontmatter
 \subfile{Frontmatter/Dedication}
-\subfile{Frontmatter/Authorship}
+% \subfile{Frontmatter/Authorship}
 \subfile{Frontmatter/Publications}
 \subfile{Frontmatter/Acknowledgements}
 \subfile{Frontmatter/Abstract} 
+% \subfile{Frontmatter/Lists}
 
 % Table of contents
 \thispagestyle{empty}
@@ -93,7 +99,6 @@
 \clearpage
 
 % List of Figures
-\cleardoublepage
 \phantomsection
 \setlength{\cftfigindent}{0pt} % remove indentation
 \addcontentsline{toc}{chapter}{List of Figures}
@@ -101,7 +106,6 @@
 \thispagestyle{empty}
 
 % List of Tables
-\cleardoublepage
 \phantomsection
 \setlength{\cfttabindent}{0pt} % remove indentation
 \addcontentsline{toc}{chapter}{List of Tables}
@@ -109,7 +113,6 @@
 \thispagestyle{empty}
 
 % List of Equations
-\cleardoublepage
 \phantomsection
 \newcommand{\listequationsname}{List of Equations}
 \newlistof{myequations}{equ}{\listequationsname}
@@ -141,11 +144,11 @@
 \subfile{chapter_1/9_overview}
 
 % Chapter 2
-\subfile{chapter_2/Part 1}
-\subfile{chapter_2/Part 2}
-\subfile{chapter_2/Part 3}
-\subfile{chapter_2/Part 4}
-\subfile{chapter_2/Part 5}
+\subfile{chapter_2/1_vmax}
+\subfile{chapter_2/2_fitting}
+\subfile{chapter_2/3_magnitude}
+\subfile{chapter_2/4_spectral}
+\subfile{chapter_2/5_conclusion}
 
 % Chapter 3
 \subfile{chapter_3/1_abstract}
@@ -159,7 +162,9 @@
 \subfile{chapter_3/6_conclusions}
 
 % Chapter 4
-\subfile{chapter_4/Part 1}
+\subfile{chapter_4/1_conclusions}
+\subfile{chapter_4/2_limitations}
+\subfile{chapter_4/3_future}
 
 % References
 \chaptermark{References}
@@ -170,8 +175,8 @@
 \thispagestyle{empty}
 
 % Appendices
-\subfile{Appendices/A}
-\subfile{Appendices/B}
+% \subfile{Appendices/A}
+% \subfile{Appendices/B}
 
 % End
 \end{document}
